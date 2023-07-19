@@ -3,10 +3,36 @@
 
 void replace(std::string file, std::string world1,std::string world2)
 {
-    std::cout<<file<<std::endl;
-    std::cout<<world1<<std::endl;
-    std::cout<<world2<<std::endl;
-     ofstream MyFile("filename.txt");
+    std::string myText;
+    size_t n;
+    int length1;
+    int length2;
+
+    length2 = world2.length();
+    length1 = world1.length();
+
+    std::ifstream MyReadFile; 
+    MyReadFile.open(file);
+    if(!MyReadFile) 
+    {
+        std::cout << "Error: file could not be opened\n";
+    }
+    else 
+    {
+        std::ofstream MyFile(file+".replace");
+        while (getline (MyReadFile, myText)) 
+        {
+            n = myText.find(world1);
+            while(n!=std::string::npos)
+            {
+                myText.erase(n, length1);
+                myText.insert(n,world2);
+                n = myText.find(world1, n + length2);
+            }
+            MyFile << myText<<"\n";
+        }
+    }
+    MyReadFile.close();
 }
 
 int main(int argc, char **argv)

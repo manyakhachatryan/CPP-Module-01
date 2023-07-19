@@ -3,7 +3,6 @@
 HumanA::HumanA(std::string str, Weapon& weapon) : _weapon(weapon)
 {
     _name = str;
-    // _weapon = &weapon;
 }
 HumanA::~HumanA(){}
 
